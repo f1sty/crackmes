@@ -3,10 +3,14 @@
 #include <string.h>
 
 /*
-   secret_flag = "flag{w3ll_d0ne_y0ung_pad4wan}"
+   flag = "flag{w3ll_d0ne_y0ung_pad4wan}"
+   option = "--d0n7l00k@m3"
 
    Used ghidra adn IDA Free (static analysis), to compile do:
-   `gcc -lssl -lcrypto decrypt_data.c -o decrypt_data`
+   `gcc -lssl -lcrypto decrypt_data.c -o decrypt_data`.
+
+   Also, you can run next command to get the flag:
+   `./secr3tfl4g --d0n7l00k@m3`
 */
 
 unsigned char *decrypt_data(unsigned char *data) {
@@ -30,11 +34,15 @@ unsigned char *decrypt_data(unsigned char *data) {
 
 int main(int argc, char **argv) {
 
-  unsigned char *data =
+  unsigned char *encrypted_flag =
       "\x14\x0f\xe1\xa0\xe8\xd5\x6c\x38\x4f\x84\xb2\xb9\x81\xbd\x75\x04\x09\xd2"
       "\xd4\x93\x2a\xbd\xa7\x28\x41\x26\xbf\x23\x28\x38\x7c\xed\x00\x00\x00\x00"
       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-  unsigned char *decrypted = decrypt_data(data);
+  unsigned char *encrypted_option =
+      "\xab\x88\x06\xa0\x8a\x17\xf6\x25\x1d\x4c\x44\x92\x88\x2b\x33\xc0\x00\x00"
+      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+  unsigned char *decrypted_flag = decrypt_data(encrypted_flag);
+  unsigned char *decrypted_option = decrypt_data(encrypted_option);
 
-  printf("%s\n", decrypted);
+  printf("flag: %s\noption: %s\n", decrypted_flag, decrypted_option);
 }
